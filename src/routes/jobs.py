@@ -9,11 +9,11 @@ from src.database.models.products import Product, InventoryEntries, InventoryEnt
 from src.authentication import user_details, login_required
 from src.database.models.users import User
 
-cart_route = Blueprint('cart', __name__)
+jobs_route = Blueprint('cart', __name__)
 from pprint import pprint
 
 
-@cart_route.get("/shopping-cart")
+@jobs_route.get("/jobs")
 @user_details
 async def get_cart(user: User | None):
     social_url = url_for('cart.get_cart', _external=True)
@@ -24,10 +24,10 @@ async def get_cart(user: User | None):
     categories_list: list[Category] = await product_controller.get_categories()
 
     context = dict(user=user, social_url=social_url, category_list=categories_list, products_list=products_list)
-    return render_template('cart/cart.html', **context)
+    return render_template('jobs/job.html', **context)
 
 
-@cart_route.get("/shopping-cart/category/<string:category_name>")
+@jobs_route.get("/jobs/category/<string:category_name>")
 @user_details
 async def get_category_products(user: User | None, category_name: str):
     """
@@ -39,10 +39,10 @@ async def get_category_products(user: User | None, category_name: str):
     category_details = await product_controller.get_category_details(category_name=category_name)
     products_list = await product_controller.get_category_products(category_id=category_details.category_id)
     context = dict(user=user, category=category_details, products_list=products_list)
-    return render_template('cart/includes/category_products.html', **context)
+    return render_template('jobs/includes/category_products.html', **context)
 
 
-@cart_route.get("/orders")
+@jobs_route.get("/orders")
 @login_required
 async def get_orders(user: User | None):
     social_url = url_for('cart.get_orders', _external=True)
@@ -70,7 +70,7 @@ async def get_orders(user: User | None):
     return render_template('orders/orders.html', **context)
 
 
-@cart_route.post("/orders/<string:product_id>")
+@jobs_route.post("/orders/<string:product_id>")
 @login_required
 async def place_orders(user: User, product_id: str):
     order_quantity = request.form.get('quantity')
@@ -117,7 +117,7 @@ async def place_orders(user: User, product_id: str):
     return redirect(url_for('cart.get_cart'))
 
 
-@cart_route.post("/customer/capture")
+@jobs_route.post("/customer/capture")
 @login_required
 async def capture_customer_details(user: User):
     """
@@ -134,7 +134,7 @@ async def capture_customer_details(user: User):
     return redirect(url_for('cart.get_orders'))
 
 
-@cart_route.post("/customer/capture/delivery_address")
+@jobs_route.post("/customer/capture/delivery_address")
 @login_required
 async def update_delivery_address(user: User):
     """
@@ -166,7 +166,7 @@ async def update_delivery_address(user: User):
     return redirect(url_for('cart.get_orders'))
 
 
-@cart_route.get("/customer/order/edit/<string:order_id>")
+@jobs_route.get("/customer/order/edit/<string:order_id>")
 @login_required
 async def edit_order(user: User, order_id: str):
     """
@@ -181,7 +181,7 @@ async def edit_order(user: User, order_id: str):
     return render_template('orders/modals/edit.html', **context)
 
 
-@cart_route.post("/customer/order/edit/<string:order_id>")
+@jobs_route.post("/customer/order/edit/<string:order_id>")
 @login_required
 async def update_order(user: User, order_id: str):
     """
@@ -212,7 +212,7 @@ async def update_order(user: User, order_id: str):
     return render_template('orders/modals/edit.html', **context)
 
 
-@cart_route.get("/customer/order/view/<string:order_id>")
+@jobs_route.get("/customer/order/view/<string:order_id>")
 @login_required
 async def get_order(user: User, order_id: str):
     """
@@ -224,7 +224,7 @@ async def get_order(user: User, order_id: str):
     pass
 
 
-@cart_route.get("/customer/order/finalize/<string:order_id>")
+@jobs_route.get("/customer/order/finalize/<string:order_id>")
 @login_required
 async def finalize_order(user: User, order_id: str):
     """
@@ -251,7 +251,7 @@ async def finalize_order(user: User, order_id: str):
     return render_template('orders/modals/quotation.html', **context)
 
 
-@cart_route.get("/customer/invoice/<string:customer_id>/<string:order_id>")
+@jobs_route.get("/customer/invoice/<string:customer_id>/<string:order_id>")
 async def public_invoice_link(customer_id: str, order_id: str):
     """
         Accessible with Email Link --
