@@ -12,7 +12,7 @@
     {% include "layouts/flash.html" %}
     <div class="login-form">
         <h4 class="font-weight-bold text-info">Create New Login Account</h4>
-        <label class="font-weight-bold text-danger">create an account to use this service - ensure your password is unique</label>
+{#        <label class="font-weight-bold text-danger">create an account to use this service - ensure your password is unique</label>#}
         <form action="{{ url_for('auth.do_register') }}" method="POST"  enctype="multipart/form-data">
 {#            <div class="form-group">#}
 {#                <label for="username">User Name</label>#}
