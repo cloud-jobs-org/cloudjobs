@@ -16,6 +16,7 @@ from src.controller.paypal_controller import PayPalController
 from src.controller.chat_controller import ChatController
 from src.controller.messaging_controller import MessagingController
 from src.controller.product_controller import ProductController
+
 # from src.firewall import Firewall
 
 user_controller = UserController()
@@ -27,9 +28,6 @@ messaging_controller = MessagingController()
 product_controller = ProductController()
 
 chat_io = SocketIO()
-
-
-# firewall = Firewall()
 
 
 def _add_filters(app: Flask):
