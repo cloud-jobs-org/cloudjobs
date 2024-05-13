@@ -49,7 +49,7 @@ def create_app(config):
     app.template_folder = template_folder()
     app.static_folder = static_folder()
     app.config['SECRET_KEY'] = config.SECRET_KEY
-    app.config['BASE_URL'] = "https://zwavhudivhudi-electrical.work"
+    app.config['BASE_URL'] = "https://cloud-jobs.org"
 
     with app.app_context():
         from src.main.bootstrapping import bootstrapper

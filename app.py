@@ -1,6 +1,5 @@
 from src.main import create_app
 from src.config import config_instance
-import threading
 
 # Create the Flask app, chat_io, and message_loop
 app = create_app(config=config_instance())

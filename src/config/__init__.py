@@ -33,7 +33,7 @@ class Logging(BaseSettings):
 
 class ResendSettings(BaseSettings):
     API_KEY: str = Field(..., env="RESEND_API_KEY")
-    from_: str = Field(default="norespond@zwavhudivhudi-electrical.work")
+    from_: str = Field(default="norespond@cloud-jobs.org")
 
     class Config:
         env_file = '.env.development'
@@ -42,8 +42,8 @@ class ResendSettings(BaseSettings):
 
 class EmailSettings(BaseSettings):
     RESEND: ResendSettings = ResendSettings()
-    COMPANY_ADMIN_EMAIL: str = Field(default="pfunzo@zwavhudivhudi-electrical.work")
-    SYSTEM_ADMIN_EMAIL: str = Field(default="email@zwavhudivhudi-electrical.work")
+    COMPANY_ADMIN_EMAIL: str = Field(default="admin@cloud-jobs.org")
+    SYSTEM_ADMIN_EMAIL: str = Field(default="email@cloud-jobs.org")
 
     class Config:
         env_file = '.env.development'
@@ -69,8 +69,8 @@ class BrainTreeSettings(BaseSettings):
 
 
 class Settings(BaseSettings):
-    APP_NAME: str = Field(default='Last Base')
-    LOGO_URL: str = Field(default="https://zwavhudivhudi-electrical.work/static/images/custom/logo.png")
+    APP_NAME: str = Field(default='Cloud-Jobs.org')
+    LOGO_URL: str = Field(default="https://cloud-jobs.org/static/images/logo.png")
     SECRET_KEY: str = Field(..., env="SECRET_KEY")
     CLIENT_SECRET: str = Field(..., env="CLIENT_SECRET")
     MYSQL_SETTINGS: MySQLSettings = MySQLSettings()
@@ -84,8 +84,8 @@ class Settings(BaseSettings):
     FLUTTERWAVE_FLW_SECRET_KEY: str = Field(..., env="FLUTTERWAVE_SECRET_KEY")
     FLUTTERWAVE_HASH: str = Field(..., env="FLUTTERWAVE_HASH")
     PAYPAL_SETTINGS: PayPalSettings = PayPalSettings()
-    ADMIN_EMAIL: str = "admin@last-shelter.vip"
-    AUTH_CODE: str = "pfunzo@zwavhudivhudi-electrical.work"
+    ADMIN_EMAIL: str = "admin@cloud-jobs.org"
+    AUTH_CODE: str = "11111"
 
 
 

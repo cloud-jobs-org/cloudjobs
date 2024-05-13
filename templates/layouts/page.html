@@ -7,6 +7,10 @@
     <!-- theme meta -->
     <meta name="theme-name" content="focus" />
     <title>Cloud Jobs - Freelance Website & Software Development</title>
+
+    {% if seo %}
+        <meta name="description" content="{{ seo.description }}">
+    {% endif %}
     <!-- ================= Favicon ================== -->
     <!-- Standard -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/ico.png') }}">
