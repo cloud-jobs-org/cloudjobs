@@ -1,0 +1,159 @@
+{% extends "layouts/page.html" %}
+
+{% block content %}
+
+<section id="main-content">
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs" id="companyTabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="companyDetails-tab" data-toggle="tab" href="#companyDetails" role="tab" aria-controls="companyDetails" aria-selected="true">
+                        <span class="font-weight-bold text-info">
+                            <i class="fa fa-folder"> </i>
+                            Company Details
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="addBranch-tab" data-toggle="tab" href="#addBranch" role="tab" aria-controls="addBranch" aria-selected="false">
+                        <span class="font-weight-bold text-info">
+                            <i class="fa fa-folder"> </i>
+                                Branches
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="adminTasks-tab" data-toggle="tab" href="#adminTasks" role="tab" aria-controls="adminTasks" aria-selected="false">
+                        <span class="font-weight-bold text-info">
+                            <i class="fa fa-folder"> </i>
+                            Admin
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="subscriptions-tab" data-toggle="tab" href="#subscription" role="tab" aria-controls="adminTasks" aria-selected="false">
+                        <span class="font-weight-bold text-info">
+                            <i class="fa fa-paypal"> </i>
+                            Subscription
+                        </span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+        <div class="card-body">
+            <div class="tab-content" id="companyTabsContent">
+                <div class="tab-pane fade show active" id="companyDetails" role="tabpanel" aria-labelledby="companyDetails-tab">
+                    <!-- Company Details Tab Content -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title font-weight-bold text-info">
+                                <i class="fa fa-folder-o"></i>
+                                Company Details
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li><strong>CK/Reg Number:</strong>  <span class="font-weight-bold text-info">{{ company.reg_ck }}</span></li>
+                                <li><strong>VAT Number:</strong> <span class="font-weight-bold text-info">{% if company.vat_number %} {{ company.vat_number }} {% else %} N/A {% endif %}</span></li>
+                                <li><strong>Company Name:</strong> <span class="font-weight-bold text-info">{{ company.company_name }}</span></li>
+                                <li><strong>Company Description:</strong> <span class="font-weight-bold text-info">{{ company.company_description }}</span></li>
+                                <li><strong>Company Slogan:</strong> <span class="font-weight-bold text-info">{{ company.company_slogan }}</span></li>
+                                <li><strong>Date Registered:</strong> <span class="font-weight-bold text-info">{{ company.date_registered }}</span></li>
+                                <li><strong>Total Employees:</strong> <span class="font-weight-bold text-info">{{ company.total_users }}</span></li>
+                                <li><strong>Total Clients:</strong> <span class="font-weight-bold text-info">{{ company.total_clients }}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="addBranch" role="tabpanel" aria-labelledby="addBranch-tab">
+                    <!-- Add Company Branch Tab Content -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title font-weight-bold text-info">
+                                <i class="fa fa-folder-open"> </i>
+                                Company Branches
+                            </h3>
+                        </div>
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Description</td>
+                                    <td>Total Employees</td>
+                                    <td>Total Clients</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for branch in company_branches %}
+                                    <tr>
+                                        <td>
+                                            <a href="{{ url_for('company.get_branch', branch_id=branch.branch_id) }}" class="font-weight-bold text-info">
+                                                {{ branch.branch_name }}
+                                            </a>
+                                        </td>
+                                        <td>{{ branch.branch_description }}</td>
+                                        <td>{{ branch.total_employees }}</td>
+                                        <td>{{ branch.total_clients }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="card-footer">
+                            <a href="#" class="btn btn-sm btn-primary mr-2 mr-md-12 mb-2 mb-md-0" data-toggle="modal" data-target="#addBranchID">
+                                Add Branch
+                            </a>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="adminTasks" role="tabpanel" aria-labelledby="adminTasks-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title font-weight-bold text-info">
+                                <i class="fa fa-file-excel-o"> </i>
+                                Admin Tasks
+                            </h3>
+                        </div>
+
+                        <div class="card-body">
+                            <a class="btn btn-sm btn-primary  text-white">
+                                <span class="font-weight-bold">x
+                                    <i class="fa fa-user-secret"> </i>
+                                    Employee Roles &amp; Access Rights
+                                </span>
+                            </a>
+
+                            <a class="btn btn-sm btn-primary text-white">
+                                <span class="font-weight-bold">
+                                    <i class="fa fa-users"> </i>
+                                    Employee Positions
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="subscription" role="tabpanel" aria-labelledby="subscription-tab">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title font-weight-bold text-info">
+                                <i class="fa fa-paypal"> </i>
+                                Subscriptions
+                            </h3>
+                        </div>
+
+                        <!-- if subscribed include plans dashboard -->
+                        {% include "admin/managers/subscriptions/plans_description.html" %}
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% include "admin/managers/modals/add_branch.html" %}

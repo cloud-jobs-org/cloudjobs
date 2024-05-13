@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- theme meta -->
+    <meta name="theme-name" content="focus" />
+    <title>Cloud Jobs - Freelance Website & Software Development</title>
+    <!-- ================= Favicon ================== -->
+    <!-- Standard -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo.jpg') }}">
+    <!-- Retina iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ url_for('static', filename='images/custom/logo.jpg') }}">
+    <!-- Retina iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ url_for('static', filename='images/custom/logo.jpg') }}">
+    <!-- Standard iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ url_for('static', filename='images/custom/logo.jpg') }}">
+    <!-- Standard iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ url_for('static', filename='images/custom/logo.jpg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/lib/font-awesome.min.css') }}"/>
+
+    <!-- Styles -->
+    {% block css %}
+        <link href="{{ url_for('static', filename='css/lib/calendar2/pignose.calendar.min.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/lib/chartist/chartist.min.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/lib/font-awesome.min.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/lib/themify-icons.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/lib/owl.carousel.min.css') }}" rel="stylesheet" />
+        <link href="{{ url_for('static', filename='css/lib/owl.theme.default.min.css') }}" rel="stylesheet" />
+        <link href="{{ url_for('static', filename='css/lib/weather-icons.css') }}" rel="stylesheet" />
+        <link href="{{ url_for('static', filename='css/lib/menubar/sidebar.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/lib/bootstrap.min.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/lib/helper.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
+    {% endblock %}
+
+    {% block custom_css %}
+    {% endblock %}
+
+    {% block head_scripts %}
+    {% endblock %}
+
+</head>
+<body>
+{% include "layouts/sidebar.html" %}
+{% include "layouts/header.html" %}
+    <div class="content-wrap">
+        <div class="main">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 p-r-0 title-margin-right">
+                        <div class="page-header">
+                            <div class="page-title">
+                                <h1><span>- Cloud Jobs - Online Freelance Website &amp; Software Development Platform</span></h1>
+                            </div>
+
+                        {% include "layouts/flash.html" %}
+                        </div>
+                    </div>
+                </div>
+                {% block content %}
+                    {#   MAIN Content Section #}
+                {% endblock %}
+
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/lib/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/lib/jquery.nanoscroller.min.js') }}"></script>
+    <!-- nano scroller -->
+    <script src="{{ url_for('static', filename='js/lib/menubar/sidebar.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/lib/preloader/pace.min.js') }}"></script>
+    <!-- sidebar -->
+    {% block scripts %}
+        {#  Page Custom Scripts #}
+    {% endblock %}
+
+    <script src="{{ url_for('static', filename='js/lib/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <!-- bootstrap -->
+    <script src="{{ url_for('static', filename='js/interface/interface.js') }}"></script>
+</body>
+</html>

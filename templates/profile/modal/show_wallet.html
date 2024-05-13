@@ -1,0 +1,65 @@
+
+
+
+
+<div class="modal fade" id="showWallet" tabindex="-1" role="dialog" aria-labelledby="showWalletLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="addPayPalLabel"> <i class="ti ti-wallet"> </i>Merchant Wallet </h2>
+            </div>
+
+            <div class="modal-body">
+
+            <div class="card">
+                    <div class="form-group">
+                        <label><small>Balance is made out of <strong>Actual Balance</strong> and <strong>Escrow - Balance</strong>, purchases can only be made with
+                            the portion of your balance which is already in Escrow</small></label>
+                        <label class="font-weight-bold"><i class="ti ti-money"> </i> Actual - Balance</label>
+                        <input class="form-control" type="text" name="balance" value="{{ wallet.balance| number }}" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold"><i class="ti ti-money"></i> Escrow - Balance <span class="font-italic font-weight-bold text-info"><small>(You can guarantee a purchase with an amount in Escrow)</small></span></label>
+                        <input class="form-control" type="text" name="escrow" value="{{ wallet.escrow| number }}" readonly />
+                    </div>
+                    <div class="form-control-sm">
+                         <input type="number" class="form-control-sm" value="{{ wallet.balance }}"/>
+                         <button type="button" class="btn btn-sm btn-secondary btn-addon"> <i class="ti ti-bag"> </i> Send Balance Escrow</button>
+                        <label class="font-italic text-danger"><small>If you do not use any of the amount in Escrow within 7 days, it will automatically be transferred back to your Actual Balance</small></label>
+                    </div>
+            </div>
+                    <div class="card">
+                        <form class="form-horizontal" method="POST" action="{{ url_for("wallet.make_withdrawal") }}">
+                            <div class="form-group">
+                                <label class="font-weight-bold" for="withdrawal_amount">Withdrawal Amount</label>
+                                <div class="form-control-sm">
+                                    <label class="font-weight-bold"> Minimum withdrawal Amount is 50 USD</label>
+                                    <input type="number" id="withdrawal_amount" name="withdrawal_amount" class="form-control-sm" value="100"/>
+                                 <button class="btn btn-sm btn-default" type="submit" name="withdraw"> <i class="ti ti-credit-card"> </i> Withdraw</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card">
+                        <form class="form-horizontal" method="POST" action="{{ url_for('wallet.make_deposit') }}">
+                            {#  This wallet Sub Form Allows for Deposits #}
+                            <div class="form-group">
+                                <label class="font-weight-bold" for="deposit_amount">Deposit Amount</label>
+                                <div class="form-control-sm">
+                                    <label class="font-weight-bold">Select the Amount you want to Deposit</label>
+                                    <select class="form-control" name="deposit_amount">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="50" selected>50</option>
+                                        <option value="100">100</option>
+                                        <option value="200">200</option>
+                                    </select>
+                                 <button class="btn btn-sm btn-default" type="submit" name="deposit"> <i class="ti ti-credit-card"> </i> Deposit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

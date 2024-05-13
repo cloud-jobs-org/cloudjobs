@@ -1,0 +1,44 @@
+{% extends "layouts/page.html" %}
+
+{% block content %}
+
+<section id="main-content">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title font-weight-bold text-info">
+                <i class="fa fa-users"> </i>
+                Customers
+            </h2>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Customer ID</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Contact Number</th>
+                        <th>Date Joined</th>
+                        <th>Active</th>
+                        <!-- Add more table headers as needed -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for customer in customers_list %}
+                        <tr>
+                            <td><a href="{{ url_for('admin.edit_customer', customer_id=customer.customer_id) }}">{{ customer.customer_id }}</a></td>
+                            <td>{{ customer.full_names }} {{ customer.surname }}</td>
+                            <td>{{ customer.email }}</td>
+                            <td>{{ customer.contact_number }}</td>
+                            <td>{{ customer.date_joined }}</td>
+                            <td>{{ "Yes" if customer.is_active else "No" }}</td>
+                            <!-- Add more table cells as needed -->
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "layouts/page.html" %}
+
+{% block content %}
+
+<section id="main-content">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title font-weight-bold text-info">
+                <i class="fa fa-envelope"></i>
+                Messages
+            </h2>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Message</th>
+                            <th>Date Submitted</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for contact in contact_messages %}
+                            <tr>
+                                <td class="font-weight-bold text-info">
+                                    <a href="{{ url_for('admin.get_contact_message', contact_id=contact.contact_id) }}">
+                                        {{ contact.name }}
+                                    </a>
+                                </td>
+                                <td>{{ contact.email }}</td>
+                                <td>{{ contact.message[:32] if contact.message else "" }}</td>
+                                <td>{{ contact.datetime_submitted }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

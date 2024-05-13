@@ -1,0 +1,11 @@
+pydantic==1.10.9
+python-dotenv
+PyMySQL==1.0.3
+pyOpenSSL==24.1.0
+flask[async]
+flask_socketio
+flask_bcrypt
+sqlalchemy
+resend
+paypalrestsdk
+aiocache

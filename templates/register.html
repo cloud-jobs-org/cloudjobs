@@ -1,0 +1,42 @@
+
+{% extends "layouts/auth.html" %}
+
+{% block content %}
+<div class="login-content">
+
+    <div class="login-logo">
+       <a href="{{ url_for('home.get_home') }}"><span>Cloud Jobs</span></a>
+    </div>
+
+
+    {% include "layouts/flash.html" %}
+    <div class="login-form">
+        <h4 class="font-weight-bold text-info">Create New Login Account</h4>
+        <label class="font-weight-bold text-danger">create an account to use this service - ensure your password is unique</label>
+        <form action="{{ url_for('auth.do_register') }}" method="POST"  enctype="multipart/form-data">
+{#            <div class="form-group">#}
+{#                <label for="username">User Name</label>#}
+{#                <input type="text" class="form-control" id="username" name="username" placeholder="User Name">#}
+{#            </div>#}
+{##}
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+            </div>
+            <div class="checkbox">
+                <label class="font-weight-bold">
+                    <input type="checkbox" name="terms"> Agree the terms and policy
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Register</button>
+            <div class="register-link m-t-15 text-center font-weight-bold">
+                <p>Already have account ? <a href="{{ url_for('auth.get_auth') }}"> Sign in</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

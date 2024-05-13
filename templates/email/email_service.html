@@ -1,0 +1,153 @@
+
+{% extends "layouts/page.html" %}
+
+{% block content %}
+
+<section id="main-content">
+    <div class="card">
+            <div class="card-header">
+                <h3 class="card-title font-weight-bold text-info"> <i class="ti ti-email"></i> Email Service</h3>
+                <div>
+
+                </div>
+            </div>
+            <label class="font-weight-bold text-info">This service allows you to create custom emails to use when creating in-game accounts and farms accounts</label>
+            <div class="card-body">
+                <h3 class="card-title font-weight-bold text-info">How it works</h3>
+
+                <span class="font-weight-bold text-info">Our Email Utility allows you to create multiple email addresses  - which in turn can be used to automatically
+                    activate all your game accounts without any action from you.</span>
+
+                <span class="font-weight-bold text-info"> It also doubles as an email forwarder with a condition that it will only forward to your personal inbov
+                emails coming only from last shelter survival games.</span>
+
+                <h3 class="card-title font-weight-bold text-info"> Benefits</h3>
+               <ol class="list-group">
+                   <li class="list-group-item font-weight-bold text-info">Our Auto Responder utility will allow you to automatically verify all accounts as you create them in the game</li>
+                   <li class="list-group-item font-weight-bold text-info">This also simplifies your farm creation process as you do not have to sign in to multiple email accounts in order to verify all your game accounts</li>
+               </ol>
+            </div>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title font-weight-bold text-info">Subscription</h3>
+                <div>
+                    <label class="font-weight-bold">- Upon Subscription your incoming game emails will all be redirected to your main email address</label>
+                    <label class="font-weight-bold">- all your activation emails will be activated then sent to your original email address.</label>
+                    <label class="font-weight-bold">- <span class="text-danger">(for obvious security reasons)</span> all other game emails including password reset emails will not be auto responded but
+                        just sent to your inbox.</label>
+                    <label class="font-weight-bold">- <span class="text-danger"> This Email Utility will only work for emails originating from last shelter survival</span> it cannot be used for any other purpose or to activate accounts from any other game</label>
+                </div>
+            </div>
+            <form class="form-horizontal" action="{{ url_for('email.create_subscription') }}" method="POST">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"><i class="ti ti-email"> </i> Emails</h3>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            Your Original Email address will receive all emails, your Suggested Email Address will form the Main part of the email
+                            addresses which will be used for your game accounts, and all the emails sent to your game email addresses will be sent to your original email address
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-bold">Original Email Address Example: <small class="text-info"> john@gmail.com</small></label>
+                        <input type="email" class="form-control" name="email" value="{{ user.email }}"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="font-weight-bold">Email Stub : First Part of Email: <small class="text-info"> john@last-shelter.vip in this email the first part is john</small></label>
+                        <input type="email" class="form-control" name="email_stub" placeholder="john"/>
+                        <label>Your farm emails will therefore be , f1.john@last-shelter.vip , f2.john@last-shelter.vip , and etc</label>
+                        <label class="font-weight-bold text-danger">Your control panel will include all your email addresses, and also a status indicator indicating which ones are already used</label>
+                    </div>
+                </div>
+                <div class="card">
+                <div class="form-group">
+                    <label class="font-weight-bold">Subscription Term</label>
+                    <select class="form-control" name="subscription_term" id="subscription_term">
+                        <option value="3" selected> 3 Months Subscription</option>
+                        <option value="6"> 6 Months Subscription</option>
+                        <option value="12"> 12 Months Subscription</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="font-weight-bold">Total Emails</label>
+                    <select class="form-control" name="total_emails" id="total_emails">
+                        <option value="10" selected> 10 Email Addresses</option>
+                        <option value="25"> 25 Email Addresses</option>
+                        <option value="50"> 50 Email Addresses</option>
+                        <option value="100"> 100 Email Addresses</option>
+                    </select>
+                </div>
+
+                <input type="hidden" name="total_amount" id="total_amount" value="15"/>
+                </div>
+                <div class="card-footer">
+                <div class="form-group">
+                    <label class="font-weight-bold text-info" id="total_label">Total Subscription Amount: <span class="text-danger">15 USD</span></label>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-secondary"><i class="ti ti-credit-card"> </i> Subscribe</button>
+                    </div>
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</section>
+
+{% endblock %}
+{% block scripts %}
+
+<script>
+    // Function to calculate and update the total subscription amount
+    function updateSubscriptionTotal() {
+        // Get selected values
+        var term = parseInt(document.querySelector('select[name="subscription_term"]').value);
+        var emails = parseInt(document.querySelector('select[name="total_emails"]').value);
+
+        // Calculate total amount
+        var totalAmount = 0;
+        if (term === 3) {
+            if (emails === 10) {
+                totalAmount = 15;
+            } else if (emails === 25) {
+                totalAmount = 30;
+            } else if (emails === 50) {
+                totalAmount = 45;
+            } else if (emails === 100) {
+                totalAmount = 60;
+            }
+        } else if (term === 6) {
+            if (emails === 10) {
+                totalAmount = 25;
+            } else if (emails === 25) {
+                totalAmount = 40;
+            } else if (emails === 50) {
+                totalAmount = 55;
+            } else if (emails === 100) {
+                totalAmount = 70;
+            }
+        } else if (term === 12) {
+            if (emails === 10) {
+                totalAmount = 35;
+            } else if (emails === 25) {
+                totalAmount = 50;
+            } else if (emails === 50) {
+                totalAmount = 65;
+            } else if (emails === 100) {
+                totalAmount = 80;
+            }
+        }
+
+        document.getElementById('total_label').textContent = 'Total Subscription: ' + totalAmount + ' USD';
+        document.getElementById('total_amount').value = totalAmount;
+    }
+
+    document.getElementById('subscription_term').addEventListener('change', updateSubscriptionTotal);
+    document.getElementById('total_emails').addEventListener('change', updateSubscriptionTotal)
+
+    updateSubscriptionTotal();
+</script>
+
+{% endblock %}

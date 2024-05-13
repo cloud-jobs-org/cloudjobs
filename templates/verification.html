@@ -1,0 +1,48 @@
+{% extends "layouts/page.html" %}
+
+{% block content %}
+
+<section id="main-content">
+    <div class="card">
+        <div class="card-header">
+            <h2>Account Verification</h2>
+            <label class="font-weight-bold text-danger">
+                ONLY VERIFY GAME ACCOUNTS YOU INTEND TO SELL
+            </label>
+        </div>
+        <div class="card-footer">
+            <blockquote class="font-weight-bold text-warning">
+                Note that your game Email should not necessarily be the same email address you used for creating this account and vice versa
+            </blockquote>
+        </div>
+        <div class="card-body">
+        <form class="form-horizontal" action="{{ url_for('profile.do_verification')}}" method="POST">
+            <input type="hidden"  name="game_id" value="{{ user.game_id }}">
+            <div class="form-group">
+                <label class="label font-weight-bold"> Game Email </label>
+                <input name="game_email" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="label font-weight-bold"> Game Password </label>
+                <input name="game_password" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="label font-weight-bold"> Game Pin </label>
+                <input name="game_pin" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-sm">
+                    <i class="ti-location-pin"> </i>
+                    Verify</button>
+            </div>
+            <div class="form-group">
+                <label class="font-weight-bold text-info">Verification usually takes 1 to 3 hours upon which your Game Account will be marked as verified</label>
+            </div>
+        </form>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+

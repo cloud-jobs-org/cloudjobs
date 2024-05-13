@@ -1,0 +1,60 @@
+
+
+<div class="modal fade" id="addProduct" tabindex="-1" role="dialog" aria-labelledby="addProductLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="card-title font-weight-bold" id="addProduct"> <i class="ti ti-folder"> </i>Product </h2>
+                <span class="font-weight-bold text-dark"> Add Products for Category : <span class="text-info">{{ category.name| title }}</span></span>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-horizontal" action="{{ url_for('admin.add_category_product', category_id=category.category_id) }}" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="name" class="font-weight-bold">Product Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Product Name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="label font-weight-bold">Description:</label>
+                        <div class="form-group">
+                            <textarea type="text" class="col-12"
+                                      id="description"
+                                      name="description"
+                                      rows="6"
+                                      placeholder="Product Description"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="image" class="font-weight-bold">Product Image</label>
+                        <input type="file" class="form-control" id="image" name="image"/>
+                    </div>
+
+                    <hr>
+                    <span class="text-danger">Prices Should not contain Cents</span>
+                    <div class="form-group">
+                        <label class="font-weight-bold" for="sale_price">Sale Price</label>
+                        <input type="number" class="form-control" name="sale_price" id="sale_price">
+                    </div>
+                    <span class="text-danger">Prices Should not contain Cents</span>
+                    <div class="form-group">
+
+                        <label class="font-weight-bold" for="cost_price">Cost Price</label>
+                        <input type="number" class="form-control" name="cost_price" id="cost_price">
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-sm">
+                            <i class="fa fa-save"></i>
+                            Save
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>

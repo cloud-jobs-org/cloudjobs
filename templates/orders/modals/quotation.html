@@ -1,0 +1,90 @@
+{% extends "layouts/page.html" %}
+
+{% block content %}
+{% include "layouts/social.html" %}
+<section id="main-content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Invoice</h3>
+        </div>
+        <div class="card-body">
+            <!-- Invoice Details -->
+            <div class="mb-4 pull-right">
+                <h5>Invoice:</h5>
+                <ol>
+                    <li class="font-weight-bold m-t-2"><strong>Invoice Number:</strong> {{ order.order_id }}</li>
+                    <li class="font-weight-bold m-t-2"><strong>Time:</strong> {{ order.order_datetime }}</li>
+                    <li class="font-weight-bold m-t-2">River Plus Projects</li>
+                    <li class="font-weight-bold m-t-2">Dreamland Chemicals</li>
+                    <li class="font-weight-bold m-t-2">Stand 003, Sendedza, Nzhelele, 0993</li>
+                </ol>
+            </div>
+            <!-- Customer Details -->
+            <div class="mb-4">
+                <h5>Customer:</h5>
+            <ol>
+                <li><strong>Name:</strong> {{ customer.full_names | title  }}</li>
+                <li><strong>Surname:</strong> {{ customer.surname | title  }}</li>
+                <li><strong>Email:</strong> {{ customer.email }}</li>
+                <li><strong>Contact:</strong> {{ customer.contact_number }}</li>
+            </ol>
+                {% if address %}
+                    <ol>
+                        <li><strong>Delivery Address:</strong> </li>
+                        <li>{{ address.address_line_1 }}</li>
+                        <li>{{ address.town_city | title }}</li>
+                        <li>{{ address.province | title  }}</li>
+                        <li>{{ address.country | title  }}</li>
+                        <li>{{ address.postal_code }}</li>
+                    </ol>
+                {% endif %}
+            </div>
+            <!-- Order Items -->
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order.items_ordered %}
+                    <tr>
+                        <td>{{ item.product_name }}</td>
+                        <td>R {{ item.price| number }}.00</td>
+                        <td>{{ item.quantity| number }}</td>
+                        <td>R {{ item.total_price| number }}.00</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="mt-4 pull-left">
+                <h5>Bank Account:</h5>
+                <ol>
+                    <li class="font-weight-bold m-t-2"><strong>Bank Name:</strong> </li>
+                    <li class="font-weight-bold m-t-2"><strong>Account Number:</strong> </li>
+                    <li class="font-weight-bold m-t-2"><strong>Account Type: </strong> </li>
+                    <li class="font-weight-bold m-t-2"><strong>Branch: </strong> </li>
+                </ol>
+            </div>
+            <!-- Payment Details -->
+            <div class="mt-4 pull-right">
+                <ol>
+                    <li class="font-weight-bold m-t-2"><strong>Sub Total:</strong> R {{ order.total_price| number }}.00</li>
+                    <li  class="font-weight-bold m-t-4"><strong>Discount:</strong> R {{ order.total_discount| number }}.00</li>
+                    <li  class="font-weight-bold m-t-4"><strong>Total: </strong> R {{ (order.total_price - order.total_discount) | number }}.00</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <button class="btn btn-sm btn-rounded btn-warning">Email Invoice</button>
+        <button class="btn btn-sm btn-rounded btn-primary pull-right">Pay With EFT</button>
+
+    </div>
+
+</section>
+
+{% endblock %}

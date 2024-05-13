@@ -1,0 +1,108 @@
+
+{% extends "layouts/page.html" %}
+
+{% block head_scripts %}
+     <script src="https://js.braintreegateway.com/web/dropin/1.42.0/js/dropin.min.js"></script>
+{% endblock %}
+
+
+{% block content %}
+
+<section id="main-content">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title font-weight-bold text-info"> <i class="ti ti-user"> </i> User Profile</h2>
+
+        </div>
+        <div class="card-body">
+
+        <form method="POST" class="form-horizontal" action="{{ url_for('profile.update_profile')}}" id="profileForm">
+        <label class="font-weight-bold text-info">Manage your Profile, Note you need your Game ID, to create a usable Profile </label>
+
+        {% if profile and profile.main_game_id %}
+                <input type="hidden" name="main_game_id" value="{{ profile.main_game_id }}" />
+        {% endif %}
+                <input type="hidden" name="uid" value="{{ user.uid }}"/>
+            <div class="form-group">
+                <label>Main Game</label>
+                <input class="form-control" type="text" value="{{ profile.main_game_id }}" name="main_game_id" readonly/>
+            </div>
+            <div class="form-group">
+                <label>Display Name / Game Name</label>
+                <input class="form-control" type="text" value="{{ profile.profile_name }}" name="profile_name" />
+            </div>
+            <div class="form-group">
+                <label>Notes</label>
+                <input class="form-control" type="text" value="{{ profile.notes }}" name="notes" />
+            </div>
+            <div class="form-group">
+                <label>Preferred Currency</label>
+                <input class="form-control" type="text" value="{{ profile.currency }}" name="currency" disabled/>
+            </div>
+
+            <div class="form-group">
+                {% if profile and profile.main_game_id %}
+                    <button type="submit" class="btn btn-primary">
+                        <i class="ti ti-save"> </i>
+                        Update Profile (LSS Account)
+                    </button>
+                {% else %}
+                <a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#addGameAccount">
+                    <i class="ti ti-shopping-cart" > </i>
+                    Create Profile (LSS Account)
+                </a>
+
+                {% endif %}
+            </div>
+        </form>
+
+        {% if profile and profile.main_game_id %}
+            <form class="form-horizontal" method="post" action="{{ url_for('profile.delete_profile') }}">
+                <input type="hidden" name="main_game_id" value="{{ profile.main_game_id }}" />
+                <input type="hidden" name="uid" value="{{ user.uid }}"/>
+                <button type="submit" class="btn btn-danger" id="deleteButton">
+                    <i class="ti ti-cut"> </i>
+                    Delete Profile
+                </button>
+             <div id="dropin-container"></div>
+            </form>
+<hr/>
+<div class="card">
+<div class="card-header">
+    <h3 class="card-title font-weight-bold text-info"><i class="ti ti-shopping-cart"> </i> Merchant Accounts</h3>
+
+</div>
+
+    <label class="font-weight-bold text-info">Create your Wallet and Merchant Accounts - in order to start buying and selling in our market place</label>
+    <div class="card-body">
+                {% if paypal_account and paypal_account.paypal_email %}
+                <a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#addPayPalAccount">
+                    <i class="ti ti-shopping-cart" > </i>
+                    Merchant Account
+                </a>
+
+                <a href="#" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#showWallet">
+                    <i class="ti ti-wallet" > </i>
+                    Wallet
+                </a>
+
+                {% else %}
+                <a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#addPayPalAccount">
+                    <i class="ti ti-shopping-cart" > </i>
+                    Merchant Account
+                </a>
+                {% endif %}
+</div>
+</div>
+        {% endif %}
+
+    </div>
+    </div>
+
+
+</section>
+{% include "profile/modal/merchant_wallet.html" %}
+{% include "profile/modal/add_game_account.html" %}
+{% include 'profile/modal/show_wallet.html' %}
+{% endblock %}
+

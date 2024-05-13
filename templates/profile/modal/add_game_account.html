@@ -1,0 +1,27 @@
+
+
+<div class="modal fade" id="addGameAccount" tabindex="-1" role="dialog" aria-labelledby="addPayPalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="addPayPalLabel"> <i class="ti ti-credit-card"> </i>Game Account </h2>
+            </div>
+
+            <div class="modal-body">
+                <form class="form-horizontal" action="{{ url_for('profile.add_game') }}" method="POST">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="game_id" placeholder="Game ID" />
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-sm">Add Game</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>

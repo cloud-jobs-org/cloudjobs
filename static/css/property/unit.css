@@ -1,0 +1,12 @@
+
+
+
+/* Hidden style */
+.add-unit-container.hidden {
+    display: none;
+}
+
+/* Visible style */
+.add-unit-container.visible {
+    display: block;
+}

@@ -1,0 +1,96 @@
+{% extends "layouts/page.html" %}
+{% block custom_css %}
+    <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+{% include "layouts/social.html" %}
+<section id="main-content">
+    <div class="card">
+        <div class="card-body">
+            <div class="card-header">
+                <h3 class="card-title font-weight-bold text-info">Order Details</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="card-title font-weight-bold">Customer Details</h4>
+                        <ol>
+                        <li class="font-weight-bold text-info">Customer ID: <span class="text-dark">{{ customer.customer_id }}</span></li>
+                            <li class="font-weight-bold text-info">Name: <span class="text-dark">{{ customer.full_names }} {{ customer.surname }}</span></li>
+                            <li class="font-weight-bold text-info">Email: <span class="text-dark">{{ customer.email }}</span></li>
+                            <li class="font-weight-bold text-info">Contact Number: <span class="text-dark">{{ customer.contact_number }}</span></li>
+                        </ol>
+                        <!-- Add more customer details as needed -->
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="card-title font-weight-bold">Order Details</h4>
+                    <ol>
+                        <li class="font-weight-bold text-info">Order ID: <span class="text-dark">{{ order.order_id }}</span></li>
+                        <li class="font-weight-bold text-info">Order Date: <span class="text-dark">{{ order.order_datetime }}</span></li>
+                        <li class="font-weight-bold text-info">Order Placed <span class="text-dark">{{ order.time_since_ordered }} Minutes Ago</span></li>
+                        <li class="font-weight-bold text-info">Phone: <span class="text-dark">{{ order.phone }}</span></li>
+                        <li class="font-weight-bold text-info">
+                            <form action="/change_order_status" method="post">
+
+                            <div class="form-group">
+                            <label class="font-weight-bold" for="status">Status</label>
+                                <select id="status" name="status" class="form-control">
+                                    <option value="Pending" {% if order.status == 'Pending' %} selected {% endif %}>Pending</option>
+                                    <option value="Processing" {% if order.status == 'Processing' %} selected {% endif %}>Processing</option>
+                                    <option value="Shipped" {% if order.status == 'Shipped' %} selected {% endif %}>Shipped</option>
+                                    <option value="Delivered" {% if order.status == 'Delivered' %} selected {% endif %}>Delivered</option>
+                                    <option value="Cancelled" {% if order.status == 'Cancelled' %} selected {% endif %}>Cancelled</option>
+                                </select>
+                            </div>
+                                <input type="hidden" name="order_id" value="{{ order.order_id }}">
+                                <button class="btn btn-sm btn-rounded btn-primary" type="submit" value="Change Status">
+                                    Update Status
+                                </button>
+                            </form>
+                        </li>
+                    </ol>
+                        <!-- Add more order details as needed -->
+                    </div>
+                </div>
+                <h4 class="card-title font-weight-bold">Items Ordered</h4>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th  class="font-weight-bold text-info">Item ID</th>
+                            <th  class="font-weight-bold text-info">Product Name</th>
+                            <th  class="font-weight-bold text-info">Quantity</th>
+                            <th  class="font-weight-bold text-info">Price</th>
+                            <th  class="font-weight-bold text-info">Total</th>
+                            <!-- Add more table headers as needed -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order.items_ordered %}
+                            <tr>
+                                <td>{{ item.item_id }}</td>
+                                <td>{{ item.product_name }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>{{ item.price }}</td>
+                                <td>{{ item.quantity * item.price }}</td>
+                                <!-- Add more table cells as needed -->
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+                            <div class="card-footer">
+                                    <ol class="font-weight-bold text-dark">
+                                        <li>- Once the order has been paid and payment verified set the order to processing</li>
+                                        <li>- Order in processing means you are working on order, once you send the order
+                                    to the client change it to Shipped.</li>
+                                        <li>- When the client receives the order they will set it to delivered or you can set it to
+                                    delivered once you verified the order has arrived</li>
+                                        <li>- you or the client can cencell the order</li>
+                                    </ol>
+
+                            </div>
+
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,39 @@
+
+{% extends "layouts/page.html" %}
+{% block custom_css %}
+    <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+{% include "layouts/social.html" %}
+<section id="main-content">
+    <div class="card">
+
+        <div class="card-body">
+            <div class="card-header">
+                <h3 class="card-title font-weight-bold text-info">Products</h3>
+            </div>
+            <div class="card-body">
+                <div class="row flex-row">
+
+                    {% for category in category_list %}
+                        <div class="card flex-column col-lg-4 col-md-4 col-sm-12">
+                            <div class="card-header">
+                                <h4 class="card-title">{{ category.name }}</h4>
+                            </div>
+                            <div class="card-content">
+                                <span>{{ category.description }}</span>
+                                <img alt="{{ category.name }}" src="{{ url_for('static', filename=category.img_link| safe ) }}" class="img-fluid">
+                            </div>
+                            <div class="card-footer">
+                                <a href="{{ url_for('cart.get_category_products', category_name=category.name) }}" class="btn btn-sm btn-primary">Product List</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

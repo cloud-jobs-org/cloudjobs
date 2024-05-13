@@ -1,0 +1,41 @@
+
+{% extends "layouts/page.html" %}
+{% block custom_css %}
+    <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+
+<section id="main-content">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title font-weight-bold text-info"> Products Admin</h2>
+        </div>
+
+        <div class="card-body">
+            <div class="card-header">
+                <h3 class="card-title font-weight-bold">Inventory</h3>
+            </div>
+            <div class="card-body">
+                <div class="row flex-row">
+                    {% for product in products_list %}
+                        <div class="card flex-column col-lg-3 col-md-3 col-sm-12">
+                            <div class="card-header">
+                                <h4 class="card-title">{{ product.name }}</h4>
+                            </div>
+                            <div class="card-content">
+                                <span>{{ product.description }}</span>
+                                <img alt="{{ product.name }}" src="{{ url_for('static', filename=product.img_link) }}" class="img-fluid">
+                            </div>
+                            <div class="card-footer">
+                                <span class="font-weight-bold text-info">Cost Price : R {{ product.cost_price| number }}.00</span>
+                                <span class="font-weight-bold text-info">Sale Price : R {{ product.sale_price| number }}.00</span>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "layouts/page.html" %}
+{% block custom_css %}
+<link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<section id="main-content">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title font-weight-bold ">
+                Cloud Jobs
+            </h1>
+        </div>
+        <div class="scrollable-row">
+            {% for category in category_list %}
+                <div class="row fluid">
+                    <!-- Image Column -->
+                    <div class="card-body">
+                        <img alt="{{ category.name }}" src="{{ url_for('static', filename=category.img_link|safe) }}" class="img-fluid" />
+                        <h2 class="card-title font-weight-bold text-info">{{ category.name|title }}</h2>
+                        <p class="font-weight-bold text-info fluid" style="max-width: 200px;">{{ category.description[:35] }}{% if category.description|length > 35 %}...{% endif %}</p>
+                        <div class="card-footer">
+                            <a href="{{ url_for('cart.get_category_products', category_name=category.name) }}"
+                               class="btn btn-sm btn-rounded btn-primary align-content-center w-100"
+                            >
+                            <i class="fa fa-folder-open"> </i>
+                                Open
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

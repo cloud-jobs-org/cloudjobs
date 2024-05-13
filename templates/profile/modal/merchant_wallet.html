@@ -1,0 +1,69 @@
+
+
+<div class="modal fade" id="addPayPalAccount" tabindex="-1" role="dialog" aria-labelledby="addPayPalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="addPayPalLabel"> <i class="ti ti-credit-card"> </i>Merchant Account </h2>
+            </div>
+
+            <div class="modal-body">
+                <h6>To Enable Buying and Selling you need to attach your PayPal Account into your Profile then request account approval</h6>
+{#                <h5 class="font-italic text-danger">Note: a service charge of <span class="text-info">5 USD</span> will be charged in order to approve the account for buying and selling in our market place</h5>#}
+                <form class="form-horizontal" action="{{ url_for('profile.add_paypal') }}" method="POST">
+                    <div class="form-group">
+                        <label for="paypal_account" class="label font-weight-bold text-black-50">PayPal Account</label>
+                        {% if paypal_account %}
+                            <input type="email" id="paypal_account" name="paypal_account" value="{{ paypal_account.paypal_email }}" class="form-control">
+                        {% else %}
+                            <input type="email" id="paypal_account" name="paypal_account"  class="form-control">
+                        {% endif %}
+                    </div>
+{#                    <div class="form-group">#}
+{#                        <label>Become a Seller</label>#}
+{#                        {% if seller_account and seller_account.account_activated %}#}
+{#                            <input type="checkbox" name="seller_account"  checked/>#}
+{#                        {% else %}#}
+{#                            <input type="checkbox" name="seller_account" />#}
+{#                        {% endif %}#}
+{##}
+{#                    </div>#}
+{#                    <div class="form-group">#}
+{#                        <label>Become a Buyer</label>#}
+{#                        {% if buyer_account and buyer_account.account_activated %}#}
+{#                            <input type="checkbox" name="buyer_account" checked/>#}
+{#                        {% else %}#}
+{#                            <input type="checkbox" name="buyer_account" />#}
+{#                        {% endif %}#}
+{#                    </div>#}
+                    {% if paypal_account %}
+                        <div class="form-group" style="display: flex; justify-content: space-between;">
+                            <button class="btn btn-warning btn-sm">
+                                <i class="ti ti-server"></i> Update Account
+                            </button>
+                        </div>
+
+                    {% else %}
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-sm">Merchant Account</button>
+                    </div>
+                    {% endif %}
+
+                </form>
+
+                <form class="form-horizontal" action="{{ url_for('market.request_approval_to_sell') }}" method="GET">
+                    {% if paypal_account and seller_account and not seller_account.account_verified %}
+                        <label class="font-weight-bold text">Allows User/Gamer to Buy and Sell in our Market Place</label>
+                        <button type="submit" class="btn btn-primary btn-sm">
+                                <i class="ti ti-credit-card"></i> Activate Merchant (5 USD)
+                        </button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{# NOTE lets just put buttons for requesting approval to buy and approval to sell #}
+{# Both will be worth 5 USD #}

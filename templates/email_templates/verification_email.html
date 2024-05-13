@@ -1,0 +1,23 @@
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Funeral Admin Email Verification</h3>
+    </div>
+    <div class="card-body">
+        <p>
+            Hello,<br><br>
+            Thank you for signing up Funeral Admin.<br>
+            To complete your registration, please click on the link below to verify your email address:<br>
+
+            Also Note that your Unique Password to Login is : {{ password }}<br>
+            Your Login Email is : {{ user.email }}<br>
+            please do not share this details with anyone else<br>
+            Important Notice your email and password is all lower case<br>
+        </p>
+        <p>
+            <a href="{{ verification_link }}">{{ verification_link }}</a>
+        </p>
+        <p>
+            If you are not an employee of an organization using our web application please ignore this email
+        </p>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+{% extends "layouts/auth.html" %}
+
+{% block content %}
+<!--suppress ALL -->
+<div class="login-content">
+    <div class="login-logo">
+        <a href="{{ url_for('home.get_home' )}}"><span>Cloud-Jobs</span></a>
+    </div>
+    {% include "layouts/flash.html" %}
+    <div class="login-form">
+        <h4 class="font-weight-bold text-info">Login</h4>
+        <label class="font-weight-bold text-info">Login to start using funeral admin</label>
+
+        <form action="{{ url_for('auth.do_login')}}" method="POST"  enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="username">Email address</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="remember"> Remember Me
+                </label>
+                <label class="pull-right">
+                    <a href="{{ url_for('auth.get_password_reset') }}">Forgotten Password?</a>
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
+            <div class="register-link m-t-15 text-center font-weight-bold">
+                <p>Don't have an account? <a href="{{ url_for('auth.get_register')}}">Sign Up Here</a></p>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

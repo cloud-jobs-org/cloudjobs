@@ -2,19 +2,20 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+/env
+.env.development
 # C extensions
 *.so
+dataSources.xml
 
 # Distribution / packaging
 .Python
 build/
 develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/
-lib/
+
 lib64/
 parts/
 sdist/
@@ -158,3 +159,4 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+/.idea/sqldialects.xml

@@ -1,0 +1,39 @@
+{% extends "layouts/page.html" %}
+
+{% block content %}
+
+<section id="main-content">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title font-weight-bold text-info">
+                <i class="fa fa-envelope"> </i>
+                Contact Form Message
+            </h2>
+        </div>
+        <div class="card-body">
+            <div class="card-content">
+                <ol>
+{#                    <li class="font-weight-bold text-info"><strong>Contact ID:</strong> {{ contact_message.contact_id }}</li>#}
+                    <li class="font-weight-bold text-info"><strong>Name:</strong> {{ contact_message.name }}</li>
+                    <li class="font-weight-bold text-info"><strong>Email:</strong> {{ contact_message.email }}</li>
+                    <li class="font-weight-bold text-info"><strong>Date Submitted:</strong> {{ contact_message.datetime_submitted }}</li>
+                </ol>
+            </div>
+            <div class="card-footer">
+                <h6 class="card-title font-weight-bold">Customer Message</h6>
+                <textarea class="col-12" readonly rows="8">{{ contact_message.message }}</textarea>
+            </div>
+            <div class="card-footer">
+                <form action="{{ url_for("admin.send_contact_message_response", contact_id=contact_message.contact_id) }}" method="post">
+                    <div class="form-group">
+                        <label for="response" class="font-weight-bold">Your Response:</label>
+                        <textarea class="col-12" id="response" name="response" rows="8" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Response</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

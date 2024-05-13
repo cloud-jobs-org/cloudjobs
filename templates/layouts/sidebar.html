@@ -1,0 +1,50 @@
+    <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
+        <div class="nano">
+            <div class="nano-content">
+                <ul>
+                    <div class="logo">
+                        <a href="{{ url_for('home.get_home') }}">
+                            <img src="{{ url_for('static', filename='images/ico.png') }}" alt="logo" width="45"
+                                 height="45">
+                            <span>CloudJobs</span>
+                        </a>
+                    </div>
+                    <li class="label">Main</li>
+                    <li><a href="{{ url_for('home.get_home') }}"><i class="ti-home"></i> Home</a></li>
+                    <li><a href="{{ url_for('home.get_about') }}"><i class="fa fa-info-circle"></i> About</a></li>
+                    <li><a href="{{ url_for('cart.get_cart') }}"><i class="fa fa-shopping-cart"></i> Products</a></li>
+                    <li><a href="{{ url_for('cart.get_orders') }}"><i class="fa fa-shopping-bag"></i> Orders</a></li>
+
+                    <li><a href="{{ url_for('home.get_contact') }}"><i class="fa fa-envelope"></i> Contact</a></li>
+
+                    {% if user and user.is_company_admin %}
+                        <li><a class="sidebar-sub-toggle"><i class="fa fa-user-md"></i> Admin<span
+                                class="sidebar-collapse-icon ti-angle-down"></span></a>
+                            <ul>
+                                <li><a href="{{ url_for('admin.get_orders') }}"><i class="fa fa-car"></i> Orders</a></li>
+                                <li><a href="{{ url_for('admin.get_customers') }}"><i class="fa fa-users"></i> Customers</a></li>
+                                <li><a class="sidebar-sub-toggle"><i class="fa fa-folder"></i> Products<span
+                                        class="sidebar-collapse-icon ti-angle-down"></span></a>
+                                    <ul>
+                                        <li><a href="{{ url_for('admin.get_categories') }}"><i class="fa fa-folder"></i> Categories</a></li>
+                                        <li><a href="{{ url_for('admin.get_products') }}"><i class="fa fa-file"></i> Products</a></li>
+                                    </ul>
+                                </li>
+
+                                <li><a href="{{ url_for('admin.get_messages') }}"><i class="fa fa-send"></i> Messages</a></li>
+                            </ul>
+                        </li>
+                    {% endif %}
+
+
+                    {% if user %}
+                        <li><a href="{{ url_for('auth.do_logout')}}"><i class="ti-power-off"></i> Logout</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('auth.get_auth')}}"><i class="ti-user"></i> Login</a></li>
+                    {% endif %}
+
+                </ul>
+            </div>
+        </div>
+</div>
+<!-- /# sidebar -->

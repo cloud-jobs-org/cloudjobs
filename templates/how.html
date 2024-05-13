@@ -1,0 +1,38 @@
+{% extends "layouts/page.html" %}
+{% block custom_css %}
+<style>
+    .faq-item {
+        margin-bottom: 20px;
+    }
+
+    .faq-item h3 {
+        cursor: pointer;
+    }
+
+    .answer {
+        display: none;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<section id="main-content">
+
+</section>
+
+
+
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function toggleAnswer(id) {
+        var answer = document.getElementById(id);
+        if (answer.style.display === "block") {
+            answer.style.display = "none";
+        } else {
+            answer.style.display = "block";
+        }
+    }
+</script>
+{% endblock %}

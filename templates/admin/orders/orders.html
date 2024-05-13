@@ -1,0 +1,55 @@
+{% extends "layouts/page.html" %}
+{% block custom_css %}
+    <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+{% include "layouts/social.html" %}
+<section id="main-content">
+    <div class="card">
+        <div class="card-body">
+            <div class="card-header">
+                <h3 class="card-title font-weight-bold text-info">
+                    <i class="fa fa-file-text"></i>
+                    Orders
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Status</th>
+                                <!-- Add more table headers as needed -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for status, orders in orders_by_status.items() %}
+                                <tr>
+                                    {% for order in orders %}
+                                        <td>
+                                        <a class="font-weight-bold text-info" href="{{ url_for('admin.get_customer_order', customer_id=order.customer_id, order_id=order.order_id) }}">
+                                            {{ order.order_id }}
+                                        </a>
+                                        </td>
+                                        <td>
+                                            {{ order.customer_name }}
+                                        </td>
+                                        <td>{{ order.email }}</td>
+                                        <td>{{ order.phone }}</td>
+                                        <td>{{ order.status }}</td>
+                                        <!-- Add more table cells as needed -->
+                                </tr>
+                                    {% endfor %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

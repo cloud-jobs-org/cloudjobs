@@ -1,0 +1,94 @@
+{% extends "layouts/page.html" %}
+
+{% block content %}
+{% include "layouts/social.html" %}
+<section id="main-content">
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Edit Order</h3>
+        </div>
+
+        <div class="card-body">
+            <form action="{{ url_for('cart.update_order', order_id=order.order_id) }}" method="POST" id="updateOrderForm">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Item Price</th>
+                            <th>Quantity</th>
+
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order.items_ordered %}
+                        <tr>
+                            <td>{{ item.product_name }}</td>
+                            <td>R {{ item.price| number }}.00</td>
+                            <td>
+                                <input type="number" class="form-control quantityInput" name="quantity_{{ item.item_id }}" value="{{ item.quantity }}" min="1" required data-price="{{ item.price }}" data-discount="{{ item.discount_percent }}">
+                            </td>
+                            <td class="totalPrice" id="total_price_{{ item.item_id }}">R {{ item.total_price| number }}.00</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-sm btn-primary">
+                    <i class="fa fa-save"> </i>
+                    Update Order
+                </button>
+            </form>
+        </div>
+
+    </div>
+</section>
+
+<script>
+
+function formatWithGrouping(number) {
+    let parts = number.toString().split(".");
+    let wholePart = parts[0];
+
+    let formattedWholePart = "";
+    while (wholePart) {
+        formattedWholePart = wholePart.slice(-3) + formattedWholePart;
+        wholePart = wholePart.slice(0, -3);
+        if (wholePart) {
+            formattedWholePart = "," + formattedWholePart;
+        }
+    }
+
+    let formattedNumber;
+    if (parts.length > 1) {
+        let decimalPart = parts[1];
+        formattedNumber = formattedWholePart + "." + decimalPart;
+    } else {
+        formattedNumber = formattedWholePart;
+    }
+
+    return formattedNumber;
+}
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get all quantity inputs
+        let quantityInputs = document.querySelectorAll('.quantityInput');
+
+        // Add event listener for each input
+        quantityInputs.forEach(function(input) {
+            input.addEventListener('change', function() {
+                let quantity = parseInt(this.value);
+                let price = parseFloat(this.getAttribute('data-price'));
+                let discountPercent = parseInt(this.getAttribute('data-discount'));
+                let item_id = this.name.split("_")[1];
+                console.log(item_id);
+                item_id = "total_price_"+item_id;
+                {#let total_price_item = document.getElementById(item_id)#}
+                // Update total price cell
+                document.getElementById(item_id).innerHTML = "R " + formatWithGrouping(Math.round((price * quantity) * (1 - (discountPercent / 100)))) + ".00";
+            });
+        });
+    });
+</script>
+
+{% endblock %}

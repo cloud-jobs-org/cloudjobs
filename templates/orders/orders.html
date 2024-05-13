@@ -1,0 +1,180 @@
+{% extends "layouts/page.html" %}
+
+{% block content %}
+{% include "layouts/social.html" %}
+<section id="main-content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title font-weight-bold text-info">
+                <i class="fa fa-shopping-cart"></i>
+                Place Your Order
+            </h3>
+        </div>
+        <div class="card-body">
+            {% if customer %}
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Customer Details</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li class="font-weight-bold text-info m-t-8">First Names : {{ customer.full_names }}</li>
+                            <li class="font-weight-bold text-info m-t-8">Surname: {{ customer.surname }}</li>
+                            <li class="font-weight-bold text-info m-t-8">Cell: {{ customer.contact_number }}</li>
+                            {% if customer.delivery_address_id %}
+                                <li class="font-weight-bold text-info m-t-8">Delivery To:
+                                    {% if postal_address %}
+                                    <ol>
+                                        <li class="font-weight-bold text-info m-b-8">Postal Address </li>
+                                        <li class="font-weight-bold text-info m-t-4">Box / Private Bag: {{ postal_address.address_line_1 }}</li>
+                                        <li class="font-weight-bold text-info m-t-4">Town / City: {{ postal_address.town_city }}</li>
+                                        <li class="font-weight-bold text-info m-t-4">Province: {{ postal_address.province }}</li>
+                                        <li class="font-weight-bold text-info m-t-4">Postal Code: {{ postal_address.postal_code }}</li>
+                                        <li class="font-weight-bold text-info m-t-4">
+                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addDeliveryAddress">
+                                                <i class="fa fa-car"> </i>
+                                                Edit Address
+                                            </a>
+                                        </li>
+                                    </ol>
+                                    {% endif %}
+                                    {% if physical_address %}
+                                    <ol>
+                                        <li class="font-weight-bold text-info m-b-8">Physical Address</li>
+                                        <li class="font-weight-bold text-info m-t-4">Street: {{ physical_address.street }}</li>
+                                        <li class="font-weight-bold text-info m-t-4">Town / City: {{ physical_address.city }}</li>
+                                        <li class="font-weight-bold text-info m-t-4">Province: {{ physical_address.state_province }}</li>
+                                        <li class="font-weight-bold text-info m-t-4">Postal Code: {{ physical_address.postal_code }}</li>
+                                        <li class="font-weight-bold text-info m-t-4">Country: {{ physical_address.country }}</li>
+                                        <li class="font-weight-bold text-info m-t-4">
+                                            <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addDeliveryAddress">
+                                                <i class="fa fa-car"> </i>
+                                                Edit Address
+                                            </a>
+                                        </li>
+
+                                    </ol>
+                                    {% endif %}
+                                </li>
+                            {% else %}
+                                 <li class="m-t-12">
+                                    <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addDeliveryAddress">
+                                        <i class="fa fa-car"> </i>
+                                        Add Delivery Address
+                                    </a>
+                                 </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            {% else %}
+                <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title font-weight-bold text-info">
+                        <i class="fa fa-user"></i>
+                        Customer Details
+                    </h3>
+                </div>
+                    <form id="customer_details" method="POST" action="{{ url_for('cart.capture_customer_details') }}">
+                        <div class="form-group">
+                            <label for="customerName" class="font-weight-bold">Your Name:</label>
+                            <input type="text" class="form-control" id="full_names" name="full_names" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="surname" class="font-weight-bold">Surname:</label>
+                            <input type="text" class="form-control" id="surname" name="surname" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="font-weight-bold">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact_number" class="font-weight-bold">Phone Number:</label>
+                            <input type="tel" class="form-control" id="contact_number" name="contact_number" required>
+                        </div>
+                        <button type="submit" class="btn btn-success mt-3">
+                            <i class="fa fa-user-circle"> </i>
+                            Customer Details
+                        </button>
+                    </form>
+                </div>
+
+            {% endif %}
+
+        </div>
+    </div>
+
+    <!-- View Current Orders Section -->
+<!-- View Current Orders Section -->
+<div class="card mt-4">
+    <div class="card-header">
+        <h3 class="card-title font-weight-bold text-info">
+            <i class="fa fa-list-alt"></i>
+            Current Orders
+        </h3>
+    </div>
+    <div class="card-body">
+        {% if current_orders %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Order Number</th>
+                        <th>Order Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in current_orders %}
+                    <tr>
+                        <td><a href="{{ url_for('cart.get_order', order_id=order.order_id) }}" class="btn btn-primary btn-sm">
+                            <i class="fa fa-search-plus"> </i>
+                            {{ order.order_id }}
+                        </a></td>
+                        <td>{{ order.order_datetime }}</td>
+                        <td>{{ order.status }}</td>
+                        <td>
+                            <a href="{{ url_for('cart.edit_order', order_id=order.order_id) }}" class="btn btn-primary btn-sm">
+                                <i class="fa fa-edit"> </i>
+                                Edit
+                            </a>
+                            <a href="{{ url_for('cart.finalize_order', order_id=order.order_id) }}" class="btn btn-primary btn-sm">
+                                <i class="fa fa-shopping-basket"> </i>
+                                Checkout
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p>No current orders found.</p>
+        {% endif %}
+    </div>
+</div>
+
+    <!-- View Previous Orders Section -->
+    <div class="card mt-4">
+        <div class="card-header">
+            <h3 class="card-title font-weight-bold text-info">
+                <i class="fa fa-history"></i>
+                Previous Orders
+            </h3>
+        </div>
+        <div class="card-body">
+            <!-- Display previous orders here -->
+            <p>No previous orders found.</p>
+        </div>
+    </div>
+
+
+</section>
+
+{% endblock %}
+
+
+{% include "orders/modals/delivery_address.html" %}
