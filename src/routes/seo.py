@@ -15,6 +15,6 @@ async def get_sitemap():
 
 
 @seo_route.get('/robots.txt')
-async def get_sitemap():
+async def get_robots():
     return render_template('robots.txt')
 
