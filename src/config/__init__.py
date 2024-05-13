@@ -24,7 +24,7 @@ class MySQLSettings(BaseSettings):
 
 
 class Logging(BaseSettings):
-    filename: str = Field(default="rental.logs")
+    filename: str = Field(default="jobs.logs")
 
     class Config:
         env_file = '.env.development'
